@@ -63,14 +63,14 @@ resource "google_compute_network" "privatenet" {
 }
 
 resource "google_compute_subnetwork" "privatesubnet-us" {
-  name          = "privatenet-subnet"
+  name          = "privatesubnet-us"
   ip_cidr_range = "172.16.0.0/24"
   region        = var.region
   network       = google_compute_network.privatenet.name
 }
 
 resource "google_compute_subnetwork" "privatesubnet-eu" {
-  name          = "privatenet-subnet"
+  name          = "privatesubnet-eu"
   ip_cidr_range = "172.20.0.0/20"
   region        = "europe-west1"
   network       = google_compute_network.privatenet.name

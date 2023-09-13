@@ -7,6 +7,8 @@
 resource "google_compute_firewall" "default_allow_icmp" {
   name    = "default-allow-icmp"
   network = var.network_name
+  direction = "INGRESS"
+  source_ranges = ["0.0.0.0/0"]
 
   allow {
     protocol = "icmp"
@@ -16,6 +18,8 @@ resource "google_compute_firewall" "default_allow_icmp" {
 resource "google_compute_firewall" "default_allow_rdp" {
   name    = "default-allow-rdp"
   network = var.network_name
+  direction = "INGRESS"
+  source_ranges = ["0.0.0.0/0"]
 
   allow {
     protocol = "tcp"
@@ -26,6 +30,8 @@ resource "google_compute_firewall" "default_allow_rdp" {
 resource "google_compute_firewall" "default_allow_ssh" {
   name    = "default-allow-ssh"
   network = var.network_name
+  direction = "INGRESS"
+  source_ranges = ["0.0.0.0/0"]
 
   allow {
     protocol = "tcp"

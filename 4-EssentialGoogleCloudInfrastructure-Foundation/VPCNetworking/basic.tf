@@ -75,3 +75,24 @@ resource "google_compute_subnetwork" "privatesubnet-eu" {
   region        = "europe-west1"
   network       = google_compute_network.privatenet.name
 }
+
+resource "google_compute_firewall" "managementnet-allow-icmp-ssh-rdp" {
+  name    = "managementnet-allow-icmp-ssh-rdp"
+  network = google_compute_network.managementnet.name
+
+  allow {
+    protocol = "icmp"
+  }
+
+  allow {
+    protocol = "tcp"
+    ports    = ["22", "3389"]
+  }
+
+  allow {
+    protocol = "udp"
+    ports    = ["3389"]
+  }
+
+  source_ranges = ["0.0.0.0/0"]
+}

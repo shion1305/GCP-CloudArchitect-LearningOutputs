@@ -1,6 +1,8 @@
 resource "google_compute_network" "mynetwork" {
   name                    = "mynetwork"
-  auto_create_subnetworks = "true"
+  #  #  change to custom on step 2
+  #  auto_create_subnetworks = "true"
+  auto_create_subnetworks = "false"
 }
 
 module "default-firewalls" {

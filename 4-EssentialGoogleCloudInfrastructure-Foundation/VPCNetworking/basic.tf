@@ -44,3 +44,35 @@ resource "google_compute_instance" "mynet-eu-vm" {
     }
   }
 }
+
+# managementnet is for step 3
+resource "google_compute_network" "managementnet" {
+  name                    = "managementnet"
+  auto_create_subnetworks = false
+}
+
+resource "google_compute_subnetwork" "managementnet-subnet" {
+  name                    = "managementsubnet-us"
+  ip_cidr_range           = "10.240.0.0/20"
+  network                 = google_compute_network.managementnet.name
+  region                  = var.region
+}
+
+resource "google_compute_network" "privatenet" {
+  name                    = "privatenet"
+  auto_create_subnetworks = false
+}
+
+resource "google_compute_subnetwork" "privatesubnet-us" {
+  name          = "privatenet-subnet"
+  ip_cidr_range = "172.16.0.0/24"
+  region        = var.region
+  network       = google_compute_network.privatenet.name
+}
+
+resource "google_compute_subnetwork" "privatesubnet-eu" {
+  name          = "privatenet-subnet"
+  ip_cidr_range = "172.20.0.0/20"
+  region        = "europe-west1"
+  network       = google_compute_network.privatenet.name
+}

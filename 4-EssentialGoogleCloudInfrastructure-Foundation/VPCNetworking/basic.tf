@@ -2,6 +2,7 @@ resource "google_compute_network" "mynetwork" {
   name                    = "mynetwork"
   #  #  change to custom on step 2
   #  auto_create_subnetworks = "true"
+  #  # YOU WILL BE ASKED TO CHANGE FROM AUTO TO CUSTOM ON DASHBOARD, BUT IT IS NOT POSSIBLE ON TERRAFORM
   auto_create_subnetworks = "false"
 }
 

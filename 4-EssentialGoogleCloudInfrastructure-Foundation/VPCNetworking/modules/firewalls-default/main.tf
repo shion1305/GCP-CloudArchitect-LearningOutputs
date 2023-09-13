@@ -5,10 +5,11 @@
 # - default_allow_internal: allows all traffic from any source in the VPC to any destination in the VPC
 
 resource "google_compute_firewall" "default_allow_icmp" {
-  name    = "default-allow-icmp"
-  network = var.network_name
-  direction = "INGRESS"
+  name          = "${var.network_name}-allow-icmp"
+  network       = var.network_name
+  direction     = "INGRESS"
   source_ranges = ["0.0.0.0/0"]
+  priority      = var.priority
 
   allow {
     protocol = "icmp"
@@ -16,10 +17,11 @@ resource "google_compute_firewall" "default_allow_icmp" {
 }
 
 resource "google_compute_firewall" "default_allow_rdp" {
-  name    = "default-allow-rdp"
-  network = var.network_name
-  direction = "INGRESS"
+  name          = "${var.network_name}-allow-rdp"
+  network       = var.network_name
+  direction     = "INGRESS"
   source_ranges = ["0.0.0.0/0"]
+  priority      = var.priority
 
   allow {
     protocol = "tcp"
@@ -28,10 +30,11 @@ resource "google_compute_firewall" "default_allow_rdp" {
 }
 
 resource "google_compute_firewall" "default_allow_ssh" {
-  name    = "default-allow-ssh"
-  network = var.network_name
-  direction = "INGRESS"
+  name          = "${var.network_name}-allow-ssh"
+  network       = var.network_name
+  direction     = "INGRESS"
   source_ranges = ["0.0.0.0/0"]
+  priority      = var.priority
 
   allow {
     protocol = "tcp"
@@ -40,19 +43,13 @@ resource "google_compute_firewall" "default_allow_ssh" {
 }
 
 resource "google_compute_firewall" "default_allow_internal" {
-  name    = "default-allow-internal"
-  network = var.network_name
+  name     = "${var.network_name}-allow-internal"
+  network  = var.network_name
+  priority = var.priority
+  direction = "INGRESS"
 
   allow {
-    protocol = "tcp"
-    ports    = ["0-65535"]
-  }
-  allow {
-    protocol = "udp"
-    ports    = ["0-65535"]
-  }
-  allow {
-    protocol = "icmp"
+    protocol = "all"
   }
 
   source_ranges = ["10.128.0.0/9"]
@@ -60,4 +57,9 @@ resource "google_compute_firewall" "default_allow_internal" {
 
 variable "network_name" {
   type = string
+}
+
+variable "priority" {
+  type    = number
+  default = 65534
 }

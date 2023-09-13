@@ -7,3 +7,8 @@ variable "region" {
   description = "The region to deploy to"
   type        = string
 }
+
+variable "zone" {
+  description = "The zone to deploy to"
+  type        = string
+}

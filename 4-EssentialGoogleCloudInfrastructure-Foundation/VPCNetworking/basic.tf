@@ -96,3 +96,24 @@ resource "google_compute_firewall" "managementnet-allow-icmp-ssh-rdp" {
 
   source_ranges = ["0.0.0.0/0"]
 }
+
+resource "google_compute_firewall" "privatenet-allow-icmp-ssh-rdp" {
+  name    = "privatenet-allow-icmp-ssh-rdp"
+  network = google_compute_network.privatenet.name
+
+  allow {
+    protocol = "icmp"
+  }
+
+  allow {
+    protocol = "tcp"
+    ports    = ["22", "3389"]
+  }
+
+  allow {
+    protocol = "udp"
+    ports    = ["3389"]
+  }
+
+  source_ranges = ["0.0.0.0/0"]
+}

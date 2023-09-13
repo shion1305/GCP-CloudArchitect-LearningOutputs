@@ -1,9 +1,8 @@
 resource "google_compute_network" "mynetwork" {
   name                    = "mynetwork"
-  #  #  change to custom on step 2
-  #  auto_create_subnetworks = "true"
+  auto_create_subnetworks = "true"
   #  # YOU WILL BE ASKED TO CHANGE FROM AUTO TO CUSTOM ON DASHBOARD, BUT IT IS NOT POSSIBLE ON TERRAFORM
-  auto_create_subnetworks = "false"
+  #  auto_create_subnetworks = false
 }
 
 module "default-firewalls" {
@@ -52,10 +51,10 @@ resource "google_compute_network" "managementnet" {
 }
 
 resource "google_compute_subnetwork" "managementnet-subnet" {
-  name                    = "managementsubnet-us"
-  ip_cidr_range           = "10.240.0.0/20"
-  network                 = google_compute_network.managementnet.name
-  region                  = var.region
+  name          = "managementsubnet-us"
+  ip_cidr_range = "10.240.0.0/20"
+  network       = google_compute_network.managementnet.name
+  region        = var.region
 }
 
 resource "google_compute_network" "privatenet" {

@@ -37,4 +37,9 @@ resource "google_compute_instance" "vm-internal" {
   }
 }
 
-
+resource "google_storage_bucket" "bucket-1" {
+  name          = "change-here-to-globally-unique-afjaioefnaiga"
+  storage_class = "MULTI_REGIONAL"
+  location      = "us"
+  force_destroy = true
+}

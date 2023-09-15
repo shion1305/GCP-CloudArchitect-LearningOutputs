@@ -8,6 +8,7 @@ resource "google_compute_subnetwork" "privatenet-us" {
   ip_cidr_range = "10.130.0.0/20"
   network       = google_compute_network.privatenet.self_link
   region        = "us-central1"
+  private_ip_google_access = true
 }
 
 resource "google_compute_firewall" "privatenet-allow-ssh" {

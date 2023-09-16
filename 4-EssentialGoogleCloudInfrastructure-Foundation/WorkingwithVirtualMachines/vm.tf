@@ -22,7 +22,7 @@ resource "google_compute_instance" "mc-server" {
 
     access_config {
       # using the reserved IP address
-      nat_ip = google_compute_global_address.mc-server-ip.address
+      nat_ip = google_compute_address.mc-server-ip.address
     }
   }
 
@@ -50,7 +50,7 @@ resource "google_compute_instance" "mc-server" {
   }
 }
 
-resource "google_compute_global_address" "mc-server-ip" {
-  name    = "mc-server-ip"
-  network = data.google_compute_network.default-nw.name
+resource "google_compute_address" "mc-server-ip" {
+  name   = "mc-server-ip"
+  region = "us-central1"
 }

@@ -51,5 +51,6 @@ resource "google_compute_instance" "mc-server" {
 }
 
 resource "google_compute_global_address" "mc-server-ip" {
-  name = "mc-server-ip"
+  name    = "mc-server-ip"
+  network = data.google_compute_network.default-nw.name
 }

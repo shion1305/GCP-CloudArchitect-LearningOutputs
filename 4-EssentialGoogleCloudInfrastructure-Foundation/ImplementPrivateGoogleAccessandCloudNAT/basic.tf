@@ -57,6 +57,10 @@ resource "google_compute_router_nat" "cloud-nat" {
   router                             = google_compute_router.cloud-nat-router.name
   nat_ip_allocate_option             = "AUTO_ONLY"
   source_subnetwork_ip_ranges_to_nat = "LIST_OF_SUBNETWORKS"
+  log_config {
+    enable = true
+    filter = "ALL"
+  }
   subnetwork {
     name                    = google_compute_subnetwork.privatenet-us.self_link
     source_ip_ranges_to_nat = ["ALL_IP_RANGES"]

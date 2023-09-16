@@ -10,10 +10,13 @@ resource "google_compute_instance" "mc-server" {
   boot_disk {
     initialize_params {
       image = "debian-cloud/debian-11"
-      size  = 50
-      type  = "pd-ssd"
+      size  = 10
     }
   }
+  attached_disk {
+    source = google_compute_disk.minecraft-disk.self_link
+  }
+
   # tags refer to network tags
   tags = ["minecraft-server"]
   network_interface {
@@ -48,6 +51,13 @@ resource "google_compute_instance" "mc-server" {
     startup-script-url  = "https://storage.googleapis.com/cloud-training/archinfra/mcserver/startup.sh"
     shutdown-script-url = "https://storage.googleapis.com/cloud-training/archinfra/mcserver/shutdown.sh"
   }
+}
+
+resource "google_compute_disk" "minecraft-disk" {
+  name = "minecraft-disk"
+  type = "pd-ssd"
+  zone = "us-central1-a"
+  size = 50
 }
 
 resource "google_compute_address" "mc-server-ip" {
